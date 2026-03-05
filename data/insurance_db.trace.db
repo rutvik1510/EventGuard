@@ -1,0 +1,5 @@
+2026-02-26 12:25:32.134232+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select * from users\000d\000a[*]select * from roles\000d\000aselect * from user_role"; SQL statement:
+select * from users
+select * from roles
+select * from user_role [42000-240]
