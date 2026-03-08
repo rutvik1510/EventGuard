@@ -1,10 +1,7 @@
 package org.hartford.eventguard.entity;
 
 public enum ClaimStatus {
-    SUBMITTED,
-    UNDER_REVIEW,
-    UNDER_INVESTIGATION,
+    PENDING,
     APPROVED,
-    REJECTED,
-    CLOSED
+    REJECTED
 }

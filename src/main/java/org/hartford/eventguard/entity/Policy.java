@@ -1,9 +1,11 @@
 package org.hartford.eventguard.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "policies")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Policy {
 
     @Id

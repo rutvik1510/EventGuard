@@ -1,11 +1,7 @@
 package org.hartford.eventguard.entity;
 
-
-
 public enum SubscriptionStatus {
-    REQUESTED,
+    PENDING,
     APPROVED,
-    REJECTED,
-    ACTIVE,
-    EXPIRED
+    REJECTED
 }

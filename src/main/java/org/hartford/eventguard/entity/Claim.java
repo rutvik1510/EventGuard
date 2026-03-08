@@ -1,44 +1,36 @@
 package org.hartford.eventguard.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "claims")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Claim {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long claimId;
 
-
     @ManyToOne
     @JoinColumn(name = "subscription_id", nullable = false)
-    private PolicySubscription subscription;
+    private PolicySubscription policySubscription;
 
-    private String claimReason;
+    private String description;
 
-    private LocalDate incidentDate;
-
-    private Double claimAmountRequested;
-
-    private Double approvedAmount;
+    private Double claimAmount;
 
     @Enumerated(EnumType.STRING)
     private ClaimStatus status;
 
+    private LocalDateTime filedAt;
+
+    private LocalDateTime resolvedAt;
 
     @ManyToOne
-    @JoinColumn(name = "reviewed_by")
-    private User reviewedBy;
-
-
-    @ManyToOne
-    @JoinColumn(name = "surveyor_id")
-    private User surveyor;
-
-    private String investigationReport;
+    @JoinColumn(name = "resolved_by")
+    private User resolvedBy;
 
     public Claim() {}
 
@@ -50,44 +42,28 @@ public class Claim {
         this.claimId = claimId;
     }
 
-    public PolicySubscription getSubscription() {
-        return subscription;
+    public PolicySubscription getPolicySubscription() {
+        return policySubscription;
     }
 
-    public void setSubscription(PolicySubscription subscription) {
-        this.subscription = subscription;
+    public void setPolicySubscription(PolicySubscription policySubscription) {
+        this.policySubscription = policySubscription;
     }
 
-    public String getClaimReason() {
-        return claimReason;
+    public String getDescription() {
+        return description;
     }
 
-    public void setClaimReason(String claimReason) {
-        this.claimReason = claimReason;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDate getIncidentDate() {
-        return incidentDate;
+    public Double getClaimAmount() {
+        return claimAmount;
     }
 
-    public void setIncidentDate(LocalDate incidentDate) {
-        this.incidentDate = incidentDate;
-    }
-
-    public Double getClaimAmountRequested() {
-        return claimAmountRequested;
-    }
-
-    public void setClaimAmountRequested(Double claimAmountRequested) {
-        this.claimAmountRequested = claimAmountRequested;
-    }
-
-    public Double getApprovedAmount() {
-        return approvedAmount;
-    }
-
-    public void setApprovedAmount(Double approvedAmount) {
-        this.approvedAmount = approvedAmount;
+    public void setClaimAmount(Double claimAmount) {
+        this.claimAmount = claimAmount;
     }
 
     public ClaimStatus getStatus() {
@@ -98,27 +74,27 @@ public class Claim {
         this.status = status;
     }
 
-    public User getReviewedBy() {
-        return reviewedBy;
+    public LocalDateTime getFiledAt() {
+        return filedAt;
     }
 
-    public void setReviewedBy(User reviewedBy) {
-        this.reviewedBy = reviewedBy;
+    public void setFiledAt(LocalDateTime filedAt) {
+        this.filedAt = filedAt;
     }
 
-    public User getSurveyor() {
-        return surveyor;
+    public LocalDateTime getResolvedAt() {
+        return resolvedAt;
     }
 
-    public void setSurveyor(User surveyor) {
-        this.surveyor = surveyor;
+    public void setResolvedAt(LocalDateTime resolvedAt) {
+        this.resolvedAt = resolvedAt;
     }
 
-    public String getInvestigationReport() {
-        return investigationReport;
+    public User getResolvedBy() {
+        return resolvedBy;
     }
 
-    public void setInvestigationReport(String investigationReport) {
-        this.investigationReport = investigationReport;
+    public void setResolvedBy(User resolvedBy) {
+        this.resolvedBy = resolvedBy;
     }
 }

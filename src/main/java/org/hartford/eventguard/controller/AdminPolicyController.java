@@ -2,7 +2,7 @@ package org.hartford.eventguard.controller;
 
 import org.hartford.eventguard.dto.PolicyRequest;
 import org.hartford.eventguard.entity.Policy;
-import org.hartford.eventguard.repo.PolicyRepository;
+import org.hartford.eventguard.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,69 +11,34 @@ import org.springframework.web.bind.annotation.*;
 public class AdminPolicyController {
 
     @Autowired
-    private PolicyRepository policyRepository;
+    private PolicyService policyService;
 
-    // 🔹 CREATE POLICY (ADMIN ONLY)
     @PostMapping
     public String createPolicy(@RequestBody PolicyRequest request) {
-
-        Policy policy = new Policy();
-
-        policy.setPolicyName(request.getPolicyName());
-        policy.setDescription(request.getDescription());
-        policy.setDomain(request.getDomain());
-        policy.setBaseRate(request.getBaseRate());
-        policy.setMaxCoverageAmount(request.getMaxCoverageAmount());
-        policy.setIsActive(true);
-
-        policyRepository.save(policy);
-
+        policyService.createPolicy(request);
         return "Policy created successfully";
     }
 
-    // 🔹 VIEW ALL POLICIES (ADMIN)
     @GetMapping
     public java.util.List<Policy> getAllPolicies() {
-        return policyRepository.findAll();
+        return policyService.getAllPolicies();
     }
 
     @GetMapping("/{id}")
     public Policy getPolicyById(@PathVariable Long id) {
-
-        return policyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Policy not found"));
+        return policyService.getPolicyById(id);
     }
 
 
     @PutMapping("/{id}")
-    public String updatePolicy(@PathVariable Long id,
-                               @RequestBody PolicyRequest request) {
-
-        Policy policy = policyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Policy not found"));
-
-        policy.setPolicyName(request.getPolicyName());
-        policy.setDescription(request.getDescription());
-        policy.setDomain(request.getDomain());
-        policy.setBaseRate(request.getBaseRate());
-        policy.setMaxCoverageAmount(request.getMaxCoverageAmount());
-
-        policyRepository.save(policy);
-
+    public String updatePolicy(@PathVariable Long id, @RequestBody PolicyRequest request) {
+        policyService.updatePolicy(id, request);
         return "Policy updated successfully";
     }
 
-    //  SOFT DELETE POLICY (better than hard delete)
     @DeleteMapping("/{id}")
     public String deactivatePolicy(@PathVariable Long id) {
-
-        Policy policy = policyRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Policy not found"));
-
-        policy.setIsActive(false);
-
-        policyRepository.save(policy);
-
+        policyService.deactivatePolicy(id);
         return "Policy deactivated successfully";
     }
 }

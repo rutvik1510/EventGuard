@@ -1,72 +1,30 @@
-package org.hartford.eventguard.entity;
+package org.hartford.eventguard.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-import org.hartford.eventguard.entity.User;
 
+import org.hartford.eventguard.entity.EventDomain;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "events")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Event {
+public class EventRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long eventId;
-
-    @Column(nullable = false)
     private String eventName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private EventDomain eventType;   // Using EventDomain (your enum)
-
+    private EventDomain eventType;
     private LocalDate eventDate;
-
     private String location;
 
-    // ---------------- RISK FACTORS ----------------
-
     private Double budget;
-
     private Integer numberOfAttendees;
-
     private Integer durationInDays;
 
     private Boolean isOutdoor;
-
     private Boolean alcoholAllowed;
-
     private Boolean temporaryStructure;
-
     private Boolean fireworksUsed;
-
     private Boolean celebrityInvolved;
 
-    private String locationRiskLevel;   // LOW / MEDIUM / HIGH
+    private String locationRiskLevel;
+    private String securityLevel;
 
-    private String securityLevel;       // BASIC / STANDARD / HIGH
-
-    // ---------------- RELATIONSHIP ----------------
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    // ---------------- CONSTRUCTOR ----------------
-
-    public Event() {}
-
-    // ---------------- GETTERS & SETTERS ----------------
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
+    public EventRequest() {}
 
     public String getEventName() {
         return eventName;
@@ -178,13 +136,5 @@ public class Event {
 
     public void setSecurityLevel(String securityLevel) {
         this.securityLevel = securityLevel;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

@@ -1,4 +1,12 @@
 package org.hartford.eventguard.repo;
 
-public class ClaimsRepository {
+import org.hartford.eventguard.entity.Claim;
+import org.hartford.eventguard.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ClaimsRepository extends JpaRepository<Claim, Long> {
+
+    List<Claim> findByPolicySubscription_Event_User(User user);
 }
