@@ -1,28 +1,34 @@
 package org.hartford.eventguard.dto;
 
-
 import org.hartford.eventguard.entity.EventDomain;
+import org.hartford.eventguard.entity.VenueType;
+
 import java.time.LocalDate;
 
 public class EventRequest {
 
+    // Common fields
     private String eventName;
     private EventDomain eventType;
     private LocalDate eventDate;
     private String location;
-
     private Double budget;
     private Integer numberOfAttendees;
     private Integer durationInDays;
+    private VenueType venueType;
+    private String locationRiskLevel;
+    private String securityLevel;
 
-    private Boolean isOutdoor;
+    // Music concert specific fields
     private Boolean alcoholAllowed;
-    private Boolean temporaryStructure;
+    private Boolean temporaryStage;
     private Boolean fireworksUsed;
     private Boolean celebrityInvolved;
 
-    private String locationRiskLevel;
-    private String securityLevel;
+    // Conference specific fields
+    private Boolean temporaryBooths;
+    private Boolean highValueEquipment;
+    private String emergencyPreparednessLevel;
 
     public EventRequest() {}
 
@@ -82,12 +88,12 @@ public class EventRequest {
         this.durationInDays = durationInDays;
     }
 
-    public Boolean getIsOutdoor() {
-        return isOutdoor;
+    public VenueType getVenueType() {
+        return venueType;
     }
 
-    public void setIsOutdoor(Boolean outdoor) {
-        isOutdoor = outdoor;
+    public void setVenueType(VenueType venueType) {
+        this.venueType = venueType;
     }
 
     public Boolean getAlcoholAllowed() {
@@ -98,12 +104,12 @@ public class EventRequest {
         this.alcoholAllowed = alcoholAllowed;
     }
 
-    public Boolean getTemporaryStructure() {
-        return temporaryStructure;
+    public Boolean getTemporaryStage() {
+        return temporaryStage;
     }
 
-    public void setTemporaryStructure(Boolean temporaryStructure) {
-        this.temporaryStructure = temporaryStructure;
+    public void setTemporaryStage(Boolean temporaryStage) {
+        this.temporaryStage = temporaryStage;
     }
 
     public Boolean getFireworksUsed() {
@@ -120,6 +126,30 @@ public class EventRequest {
 
     public void setCelebrityInvolved(Boolean celebrityInvolved) {
         this.celebrityInvolved = celebrityInvolved;
+    }
+
+    public Boolean getTemporaryBooths() {
+        return temporaryBooths;
+    }
+
+    public void setTemporaryBooths(Boolean temporaryBooths) {
+        this.temporaryBooths = temporaryBooths;
+    }
+
+    public Boolean getHighValueEquipment() {
+        return highValueEquipment;
+    }
+
+    public void setHighValueEquipment(Boolean highValueEquipment) {
+        this.highValueEquipment = highValueEquipment;
+    }
+
+    public String getEmergencyPreparednessLevel() {
+        return emergencyPreparednessLevel;
+    }
+
+    public void setEmergencyPreparednessLevel(String emergencyPreparednessLevel) {
+        this.emergencyPreparednessLevel = emergencyPreparednessLevel;
     }
 
     public String getLocationRiskLevel() {

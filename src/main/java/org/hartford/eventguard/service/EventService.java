@@ -29,6 +29,7 @@ public class EventService {
 
         Event event = new Event();
 
+        // Common fields
         event.setEventName(request.getEventName());
         event.setEventType(request.getEventType());
         event.setEventDate(request.getEventDate());
@@ -36,15 +37,20 @@ public class EventService {
         event.setBudget(request.getBudget());
         event.setNumberOfAttendees(request.getNumberOfAttendees());
         event.setDurationInDays(request.getDurationInDays());
+        event.setVenueType(request.getVenueType());
+        event.setLocationRiskLevel(request.getLocationRiskLevel());
+        event.setSecurityLevel(request.getSecurityLevel());
 
-        event.setIsOutdoor(request.getIsOutdoor());
+        // Music concert specific fields
         event.setAlcoholAllowed(request.getAlcoholAllowed());
-        event.setTemporaryStructure(request.getTemporaryStructure());
+        event.setTemporaryStage(request.getTemporaryStage());
         event.setFireworksUsed(request.getFireworksUsed());
         event.setCelebrityInvolved(request.getCelebrityInvolved());
 
-        event.setLocationRiskLevel(request.getLocationRiskLevel());
-        event.setSecurityLevel(request.getSecurityLevel());
+        // Conference specific fields
+        event.setTemporaryBooths(request.getTemporaryBooths());
+        event.setHighValueEquipment(request.getHighValueEquipment());
+        event.setEmergencyPreparednessLevel(request.getEmergencyPreparednessLevel());
 
         event.setUser(user);
 
@@ -72,6 +78,7 @@ public class EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
 
+        // Common fields
         event.setEventName(request.getEventName());
         event.setEventType(request.getEventType());
         event.setEventDate(request.getEventDate());
@@ -79,15 +86,20 @@ public class EventService {
         event.setBudget(request.getBudget());
         event.setNumberOfAttendees(request.getNumberOfAttendees());
         event.setDurationInDays(request.getDurationInDays());
+        event.setVenueType(request.getVenueType());
+        event.setLocationRiskLevel(request.getLocationRiskLevel());
+        event.setSecurityLevel(request.getSecurityLevel());
 
-        event.setIsOutdoor(request.getIsOutdoor());
+        // Music concert specific fields
         event.setAlcoholAllowed(request.getAlcoholAllowed());
-        event.setTemporaryStructure(request.getTemporaryStructure());
+        event.setTemporaryStage(request.getTemporaryStage());
         event.setFireworksUsed(request.getFireworksUsed());
         event.setCelebrityInvolved(request.getCelebrityInvolved());
 
-        event.setLocationRiskLevel(request.getLocationRiskLevel());
-        event.setSecurityLevel(request.getSecurityLevel());
+        // Conference specific fields
+        event.setTemporaryBooths(request.getTemporaryBooths());
+        event.setHighValueEquipment(request.getHighValueEquipment());
+        event.setEmergencyPreparednessLevel(request.getEmergencyPreparednessLevel());
 
         eventRepository.save(event);
 

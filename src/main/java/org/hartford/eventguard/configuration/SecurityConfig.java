@@ -4,7 +4,6 @@ import org.hartford.eventguard.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,22 +37,52 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**", "/login", "/register").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+
+                        // Public endpoints
+                        .requestMatchers(
+                                "/login",
+                                "/register",
+                                "/h2-console/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+
+                                // Static pages
+                                "/login.html",
+                                "/**.html",
+                                "/**.css",
+                                "/**.js"
+                        ).permitAll()
+
+                        // Admin endpoints
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/underwriter/**").hasAnyRole("UNDERWRITER", "ADMIN")
-                        .requestMatchers("/claims-officer/**").hasAnyRole("CLAIMS_OFFICER", "ADMIN")
+
+                        // Underwriter endpoints
+                        .requestMatchers("/underwriter/**")
+                        .hasAnyRole("UNDERWRITER", "ADMIN")
+
+                        // Claims officer endpoints
+                        .requestMatchers("/claims-officer/**")
+                        .hasAnyRole("CLAIMS_OFFICER", "ADMIN")
+
+                        // Customer endpoints
                         .requestMatchers("/events/**").hasRole("CUSTOMER")
                         .requestMatchers("/subscriptions/**").hasRole("CUSTOMER")
                         .requestMatchers("/claims/**").hasRole("CUSTOMER")
+                        .requestMatchers("/policies/**").hasRole("CUSTOMER")
+
                         .anyRequest().authenticated()
                 )
+
                 .userDetailsService(userDetailsService);
 
-        //  Add JWT Filter
-        http.addFilterBefore(jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class);
+        // Add JWT filter
+        http.addFilterBefore(
+                jwtAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
 
         return http.build();
     }

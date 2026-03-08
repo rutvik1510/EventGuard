@@ -2,7 +2,6 @@ package org.hartford.eventguard.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import org.hartford.eventguard.entity.User;
 
 import java.time.LocalDate;
 
@@ -20,13 +19,13 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EventDomain eventType;   // Using EventDomain (your enum)
+    private EventDomain eventType;
 
     private LocalDate eventDate;
 
     private String location;
 
-    // ---------------- RISK FACTORS ----------------
+    // ---------------- COMMON RISK FACTORS ----------------
 
     private Double budget;
 
@@ -34,19 +33,30 @@ public class Event {
 
     private Integer durationInDays;
 
-    private Boolean isOutdoor;
+    @Enumerated(EnumType.STRING)
+    private VenueType venueType;
+
+    private String locationRiskLevel;   // LOW / MEDIUM / HIGH
+
+    private String securityLevel;       // LOW / MEDIUM / HIGH
+
+    // ---------------- MUSIC CONCERT SPECIFIC FIELDS ----------------
 
     private Boolean alcoholAllowed;
 
-    private Boolean temporaryStructure;
+    private Boolean temporaryStage;
 
     private Boolean fireworksUsed;
 
     private Boolean celebrityInvolved;
 
-    private String locationRiskLevel;   // LOW / MEDIUM / HIGH
+    // ---------------- CONFERENCE SPECIFIC FIELDS ----------------
 
-    private String securityLevel;       // BASIC / STANDARD / HIGH
+    private Boolean temporaryBooths;
+
+    private Boolean highValueEquipment;
+
+    private String emergencyPreparednessLevel;  // LOW / MEDIUM / HIGH
 
     // ---------------- RELATIONSHIP ----------------
 
@@ -124,12 +134,12 @@ public class Event {
         this.durationInDays = durationInDays;
     }
 
-    public Boolean getIsOutdoor() {
-        return isOutdoor;
+    public VenueType getVenueType() {
+        return venueType;
     }
 
-    public void setIsOutdoor(Boolean outdoor) {
-        isOutdoor = outdoor;
+    public void setVenueType(VenueType venueType) {
+        this.venueType = venueType;
     }
 
     public Boolean getAlcoholAllowed() {
@@ -140,12 +150,12 @@ public class Event {
         this.alcoholAllowed = alcoholAllowed;
     }
 
-    public Boolean getTemporaryStructure() {
-        return temporaryStructure;
+    public Boolean getTemporaryStage() {
+        return temporaryStage;
     }
 
-    public void setTemporaryStructure(Boolean temporaryStructure) {
-        this.temporaryStructure = temporaryStructure;
+    public void setTemporaryStage(Boolean temporaryStage) {
+        this.temporaryStage = temporaryStage;
     }
 
     public Boolean getFireworksUsed() {
@@ -162,6 +172,30 @@ public class Event {
 
     public void setCelebrityInvolved(Boolean celebrityInvolved) {
         this.celebrityInvolved = celebrityInvolved;
+    }
+
+    public Boolean getTemporaryBooths() {
+        return temporaryBooths;
+    }
+
+    public void setTemporaryBooths(Boolean temporaryBooths) {
+        this.temporaryBooths = temporaryBooths;
+    }
+
+    public Boolean getHighValueEquipment() {
+        return highValueEquipment;
+    }
+
+    public void setHighValueEquipment(Boolean highValueEquipment) {
+        this.highValueEquipment = highValueEquipment;
+    }
+
+    public String getEmergencyPreparednessLevel() {
+        return emergencyPreparednessLevel;
+    }
+
+    public void setEmergencyPreparednessLevel(String emergencyPreparednessLevel) {
+        this.emergencyPreparednessLevel = emergencyPreparednessLevel;
     }
 
     public String getLocationRiskLevel() {
