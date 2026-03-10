@@ -26,6 +26,16 @@ public class PolicySubscription {
 
     private Double riskPercentage;
 
+    // Risk breakdown
+    private Double eventRisk;
+    private Double weatherRisk;
+    private Double totalRisk;
+
+    // Weather details
+    private String weatherCondition;
+    private Double temperature;
+    private Double windSpeed;
+    private Double humidity;
 
     private Double premiumAmount;
 
@@ -73,6 +83,62 @@ public class PolicySubscription {
 
     public void setRiskPercentage(Double riskPercentage) {
         this.riskPercentage = riskPercentage;
+    }
+
+    public Double getEventRisk() {
+        return eventRisk;
+    }
+
+    public void setEventRisk(Double eventRisk) {
+        this.eventRisk = eventRisk;
+    }
+
+    public Double getWeatherRisk() {
+        return weatherRisk;
+    }
+
+    public void setWeatherRisk(Double weatherRisk) {
+        this.weatherRisk = weatherRisk;
+    }
+
+    public Double getTotalRisk() {
+        return totalRisk;
+    }
+
+    public void setTotalRisk(Double totalRisk) {
+        this.totalRisk = totalRisk;
+    }
+
+    public String getWeatherCondition() {
+        return weatherCondition;
+    }
+
+    public void setWeatherCondition(String weatherCondition) {
+        this.weatherCondition = weatherCondition;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public Double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(Double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
     }
 
     public Double getPremiumAmount() {

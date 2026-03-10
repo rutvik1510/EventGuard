@@ -1,5 +1,6 @@
 package org.hartford.eventguard.repo;
 
+import org.hartford.eventguard.entity.EventDomain;
 import org.hartford.eventguard.entity.Policy;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,4 +14,11 @@ public interface PolicyRepository extends JpaRepository<Policy, Long> {
 
     // Find policy by name (useful to avoid duplicates)
     Optional<Policy> findByPolicyName(String policyName);
+
+    // Count active policies for dashboard stats
+    long countByIsActiveTrue();
+
+    // Find active policies by domain
+    List<Policy> findByDomainAndIsActiveTrue(EventDomain domain);
 }
+

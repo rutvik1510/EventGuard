@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Component
@@ -23,11 +25,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
+    // Public endpoints that should skip JWT authentication
+    private static final List<String> PUBLIC_ENDPOINTS = Arrays.asList(
+            "/login",
+            "/register",
+            "/h2-console",
+            "/swagger-ui",
+            "/v3/api-docs",
+            "/swagger-ui.html"
+    );
+
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        // Skip filter for public endpoints
+        return PUBLIC_ENDPOINTS.stream().anyMatch(path::startsWith);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -79,3 +99,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+

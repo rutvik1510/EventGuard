@@ -20,7 +20,9 @@ public class EventRequest {
     private String securityLevel;
 
     // Music concert specific fields
+    private Boolean isOutdoor;
     private Boolean alcoholAllowed;
+    private Boolean temporaryStructure;
     private Boolean temporaryStage;
     private Boolean fireworksUsed;
     private Boolean celebrityInvolved;
@@ -96,12 +98,28 @@ public class EventRequest {
         this.venueType = venueType;
     }
 
+    public Boolean getIsOutdoor() {
+        return isOutdoor;
+    }
+
+    public void setIsOutdoor(Boolean isOutdoor) {
+        this.isOutdoor = isOutdoor;
+    }
+
     public Boolean getAlcoholAllowed() {
         return alcoholAllowed;
     }
 
     public void setAlcoholAllowed(Boolean alcoholAllowed) {
         this.alcoholAllowed = alcoholAllowed;
+    }
+
+    public Boolean getTemporaryStructure() {
+        return temporaryStructure;
+    }
+
+    public void setTemporaryStructure(Boolean temporaryStructure) {
+        this.temporaryStructure = temporaryStructure;
     }
 
     public Boolean getTemporaryStage() {

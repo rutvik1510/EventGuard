@@ -1,10 +1,15 @@
 package org.hartford.eventguard.controller;
 
+import org.hartford.eventguard.dto.ApiResponse;
 import org.hartford.eventguard.dto.PolicyRequest;
-import org.hartford.eventguard.entity.Policy;
+import org.hartford.eventguard.dto.PolicyResponse;
 import org.hartford.eventguard.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/policies")
@@ -14,31 +19,47 @@ public class AdminPolicyController {
     private PolicyService policyService;
 
     @PostMapping
-    public String createPolicy(@RequestBody PolicyRequest request) {
-        policyService.createPolicy(request);
-        return "Policy created successfully";
+    public ResponseEntity<ApiResponse<PolicyResponse>> createPolicy(@RequestBody PolicyRequest request) {
+        PolicyResponse policy = policyService.createPolicyDTO(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success("Policy created successfully", policy));
     }
 
     @GetMapping
-    public java.util.List<Policy> getAllPolicies() {
-        return policyService.getAllPolicies();
+    public ResponseEntity<ApiResponse<List<PolicyResponse>>> getAllPolicies() {
+        List<PolicyResponse> policies = policyService.getAllPoliciesDTO();
+        return ResponseEntity.ok(ApiResponse.success("Policies retrieved successfully", policies));
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<ApiResponse<List<PolicyResponse>>> getActivePolicies() {
+        List<PolicyResponse> policies = policyService.getActivePoliciesDTO();
+        return ResponseEntity.ok(ApiResponse.success("Active policies retrieved successfully", policies));
     }
 
     @GetMapping("/{id}")
-    public Policy getPolicyById(@PathVariable Long id) {
-        return policyService.getPolicyById(id);
+    public ResponseEntity<ApiResponse<PolicyResponse>> getPolicyById(@PathVariable Long id) {
+        PolicyResponse policy = policyService.getPolicyByIdDTO(id);
+        return ResponseEntity.ok(ApiResponse.success("Policy retrieved successfully", policy));
     }
 
 
     @PutMapping("/{id}")
-    public String updatePolicy(@PathVariable Long id, @RequestBody PolicyRequest request) {
+    public ResponseEntity<ApiResponse<String>> updatePolicy(@PathVariable Long id, @RequestBody PolicyRequest request) {
         policyService.updatePolicy(id, request);
-        return "Policy updated successfully";
+        return ResponseEntity.ok(ApiResponse.success("Policy updated successfully"));
     }
 
     @DeleteMapping("/{id}")
-    public String deactivatePolicy(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<String>> deactivatePolicy(@PathVariable Long id) {
         policyService.deactivatePolicy(id);
-        return "Policy deactivated successfully";
+        return ResponseEntity.ok(ApiResponse.success("Policy deactivated successfully"));
+    }
+
+    @PatchMapping("/{id}/activate")
+    public ResponseEntity<ApiResponse<String>> activatePolicy(@PathVariable Long id) {
+        policyService.activatePolicy(id);
+        return ResponseEntity.ok(ApiResponse.success("Policy activated successfully"));
     }
 }
+
